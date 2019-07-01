@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ImageSpritePlugin = require('image-sprite-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -9,10 +10,21 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
+    publicPath: path.resolve(__dirname, 'dist'),
     filename: 'js/bundle.js'
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: 'css/style.css' })
+    new MiniCssExtractPlugin({ filename: 'css/style.css' }),
+    new ImageSpritePlugin({
+      commentOrigin: false,
+      compress: false,
+      extensions: ['gif', 'png'],
+      indent: '  ',
+      log: true,
+      outputFilename: '/images/sprite-[hash].png',
+      padding: 10,
+      suffix: '?' + Date.now()
+    })
   ],
   module: {
     rules: [
@@ -38,6 +50,17 @@ module.exports = {
           'css-loader',
           'sass-loader?outputStyle=expanded'
           // 'sass-loader?outputStyle=compressed'
+        ]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '/images/[name]-[hash].[ext]'
+            }
+          }
         ]
       }
     ]
