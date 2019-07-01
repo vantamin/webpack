@@ -1,0 +1,13 @@
+<div id="serviceIndex">
+  <a ui-sref="{'#': 'serviceBody'}">본문 바로가기</a>
+  <a ui-sref="{'#': 'serviceGnb'}">메뉴 바로가기</a>
+</div>
+<div id="serviceWrap">
+  <header id="serviceHead" ui-view="header"></header>
+  <main id="serviceContent">
+    <div id="cMain">
+      <article id="mArticle" ui-view></article>
+    </div>
+  </main>
+  <footer id="serviceFoot" ui-view="footer"></footer>
+</div>

@@ -25,6 +25,8 @@
     "webpack-cli": "^3.3.5"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "@uirouter/angularjs": "^1.0.22",
+    "angular": "^1.7.8"
   }
 }

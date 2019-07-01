@@ -1,21 +1,43 @@
+import 'angular';
+import '@uirouter/angularjs';
 import '@babel/polyfill';
-import { pi, power, Foo } from './lib';
-import { resolve } from 'path';
 
-console.log(pi);
-console.log(power(pi, pi));
+const app = angular.module('app', [
+  'ui.router'
+]);
 
-const f = new Foo();
-console.log(f.foo());
-console.log(f.bar());
+app.config(function ($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/app/home');
 
-// polyfill이 필요한 코드
-console.log(new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(1);
-  }, 100);
-}));
-
-console.log(Object.assign({}, { x: 1 }, { y: 2 }));
-
-console.log(Array.from([1, 2, 3], v => v + v));
+  $stateProvider
+    .state('app', {
+      url: '/app',
+      views: {
+        '': {
+          templateUrl: '/src/views/app.html'
+        },
+        'header@app': {
+          templateUrl: '/src/views/components/header.html'
+        },
+        'footer@app': {
+          templateUrl: '/src/views/components/footer.html'
+        }
+      }
+    })
+    .state('app.home', {
+      url: '/home',
+      templateUrl: '/src/views/home.html'
+    })
+    .state('app.dashboard', {
+      url: '/dashboard',
+      templateUrl: '/src/views/dashboard.html'
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: '/src/views/login.html'
+    })
+    .state('error', {
+      url: '/error',
+      templateUrl: '/src/views/error.html'
+    });
+});
